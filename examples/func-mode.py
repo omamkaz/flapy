@@ -1,5 +1,7 @@
+import flapy_path
+
 from flapy.signals import fSignalVar, fSignalType
-from flapy.widgets import fMainWindow, qWidget
+from flapy.widgets import fMainWindow, qWidget, qPushButton
 from flapy.layouts import qGridLayout,fGridAddWidget
 from flapy import fApi
 
@@ -15,7 +17,7 @@ app = flapy.init(sys.argv)
 
 
 def icon_push_button(icon: str = None) -> QPushButton:
-    btn = QPushButton()
+    btn = qPushButton(Disabled=True)
     btn.setIcon(QIcon.fromTheme(icon))
     return btn
 
@@ -47,7 +49,7 @@ window = fMainWindow(
         children=[
             fGridAddWidget(
                 child=ColorCard(color="red",
-                                signals=[(fSignalType.MOUSE_CLICK, 
+                                signals=[(fSignalType.mouseClick,
                                             lambda: change_value(window))]),
                 row=0,
                 column=1
@@ -63,42 +65,19 @@ window = fMainWindow(
                 row=1,
                 column=2,
             ),
-            icon_push_button(icon="firefox"),
+            qPushButton(
+                icon=QIcon.fromTheme("firefox"),
+                text="Click me",
+                signals=[(fSignalType.clicked, lambda: print("hi"))]
+            )
         ]
     )
 )
 
-
-window2 = fMainWindow(
-    home=qGridLayout(
-        children=[
-            fGridAddWidget(
-                child=ColorCard(color="yellow",
-                                signals=[(fSignalType.MOUSE_CLICK, 
-                                            lambda: change_value(window))]),
-                row=0,
-                column=1
-            ),
-            fGridAddWidget(
-                child=ColorCard(color="light-gray", 
-                                uid="c2"),
-                row=1,
-                column=1
-            ),
-            fGridAddWidget(
-                child=ColorCard(color="blue-yellow"),
-                row=1,
-                column=2,
-            ),
-            icon_push_button(icon="qt"),
-        ]
-    )
-)
 
 
 if __name__ == "__main__":
     window.setWindowTitle("Color Changer")
     window.resize(500, 500)
     window.show()
-    window2.show()
     sys.exit(app.exec())

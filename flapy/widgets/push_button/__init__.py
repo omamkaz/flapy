@@ -1,14 +1,12 @@
 from PySide6.QtWidgets import QPushButton
-from typing import Tuple, Callable, Any, List
 from ...common.base import fBase
-from ...signals.types import fSignalType
+from ...signals.types import fSignalVar
 
 
 class qPushButton(fBase, QPushButton):
     def __init__(self, 
                  uid: str = None,
-                 signals: List[Tuple[fSignalType, Callable[..., Any]]] = None,
-                 text: str = None,
+                 signals: fSignalVar = None,
                  *args,
                  **kwargs):
         QPushButton.__init__(self)
@@ -18,13 +16,7 @@ class qPushButton(fBase, QPushButton):
         self.setAutoRepeatDelay(kwargs.get('repeat_delay', 500))
         self.setAutoRepeatInterval(kwargs.get('repeat_interval', 500))
 
-        self._set_text(text)
-
         # self._state = 0
-
-    def _set_text(self, text: str):
-        if text is not None:
-            self.setText(text)
 
     # def _set_id(self, id: str):
     #     if id is not None:

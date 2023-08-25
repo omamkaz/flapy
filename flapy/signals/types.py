@@ -4,20 +4,35 @@ from typing import List, Tuple, Callable, Any, TypeAlias
 
 class fSignalType(Enum):
     """ 
-    Enumerates Qt signal names so that all signals are in one easily-accessible place. It is
-    still up to initializer functions to implement these signals in a consistent manner.
+    Enumerates Qt signal names so that all signals are in one easily-accessible place. 
+    It is still up to initializer functions to implement these signals in a consistent manner.
     """
 
-    # Bult-in methods
-    CLICKED = auto()
-    PRESSED = auto()
-    RELEASED = auto()
-    TEXT_CHANGED = auto()
+    ## Bult-in methods
+    # QPushButton
+    clicked = auto()
+    pressed = auto()
+    released = auto()
+    
+    # QLineEdit
+    textChanged = auto()
+    textEdited = auto()
+    editingFinished = auto()
+    returnPressed = auto()
 
-    # External methods
-    MOUSE_CLICK = auto()
-    MOUSE_DOUBLE_CLICK = auto()
-    MOUSE_HOVER = auto()
-    MOUSE_LEAVE = auto()
+    # QSlider
+    valueChanged = auto()
+    sliderMoved = auto()
+    sliderPressed = auto()
+
+    # QMainWindow
+    windowTitleChanged = auto()
+
+    # Additional methods
+    mouseClick = auto()
+    mouseDoubleClick = auto()
+    mouseHover = auto()
+    mouseLeave = auto()
+
 
 fSignalVar: TypeAlias = List[Tuple[fSignalType, Callable[..., Any]]]
